@@ -1,0 +1,52 @@
+" Settings for Vimperator (a Firefox extension)
+" 
+" Author: Benjamin Oakes <hello@benjaminoakes.com>
+
+" TODO get rid off all the beeping -- set nobeep didn't work
+
+" -----------------
+" Interface Options
+" -----------------
+
+" " Use gvim as an external editor (<C-i> to start)
+" set editor="/Users/ben/bin/gvim --nofork"
+
+" Don't focus any input elements automatically when open pages.
+set focuscontent
+" Scroll more when using J and K
+noremap J <C-d>
+noremap K <C-u>
+
+" Allow me to always easily use Google
+command google open google <args>
+command g open google <args>
+
+" Redmine searching
+command rs open https://redmine.your_orginzation.com/search?q=<args>
+
+" ---------------
+" Display Options
+" ---------------
+
+" Turn on toolbar, etc.
+set go+=mT
+
+" --------------
+" Search Options
+" --------------
+
+" default search/suggest engine: google
+set defsearch=google
+set suggestengines=google
+
+" Open the first Google result -- "I'm Feeling Lucky"
+" FIXME doesn't work for multiple (i.e., space-separated) args
+command ifl open http://www.google.com/search?ie=UTF-8&oe=UTF-8&sourceid=navclient&gfns=1&q=<args>
+
+" ----------
+" Completion
+" ----------
+
+" Show completions automatically
+set wildoptions=auto
+
