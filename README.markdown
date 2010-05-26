@@ -15,8 +15,8 @@ Please do *NOT* remove the repository directory.  If you do, the symlinks will p
 
 The way I see it, there are two main benefits to keeping these on GitHub:
 
-    1. I can easily keep my accounts/machines in sync so that I don't make my muscle-memory go berserk.
-    2. Others (like you!) can use pieces they like from my dotfiles.  (Another good place is dotfiles.org, but it isn't quite back to the state it was before _why disappeared.)  Please share alike.
+1. I can easily keep my accounts/machines in sync so that I don't make my muscle-memory go berserk.
+2. Others (like you!) can use pieces they like from my dotfiles.  (Another good place is dotfiles.org, but it isn't quite back to the state it was before _why disappeared.)  Please share alike.
 
 Historical note:  I used to keep these in a private Bazaar (`bzr`) repository, so there are many older revisions that aren't reflected here.
 
