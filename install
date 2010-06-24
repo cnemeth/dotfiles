@@ -51,6 +51,6 @@ current_directory.entries.each do |entry|
 end
 
 # Settings-applying scripts for various OSes.  (See each file for details.)
-puts %x(./defaults)
-puts %x(./gnome_settings)
+puts %x(sh ./defaults)
+puts %x(sh ./gnome_settings)
 
