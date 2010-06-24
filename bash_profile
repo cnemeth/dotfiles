@@ -45,7 +45,18 @@ bind -x '"\C-l":clear' # FIXME this doesn't seem to work in OS X's GNU screen
 # See also: http://www.faqs.org/faqs/unix-faq/faq/part2/section-13.html
 
 # Allow me to run user-specific programs
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/Projects/bin:$PATH
+export PATH=$HOME/Projects/utilities:$PATH
+
+if [ "Darwin" == `uname` ]; then
+  export PATH=$HOME/Projects/bin/osx:$PATH
+  export PATH=$HOME/Projects/utilities/osx:$PATH
+fi
+
+if [ "Linux" == `uname` ]; then
+  export PATH=$HOME/Projects/bin/linux:$PATH
+  export PATH=$HOME/Projects/utilities/linux:$PATH
+fi
 
 # Allow me to use gem executables installed to my home directory
 export PATH="$HOME/.gem/ruby/1.8/bin:$PATH"
@@ -53,7 +64,7 @@ export PATH="$HOME/.gem/ruby/1.8/bin:$PATH"
 # MATLAB didn't install nicely elsewhere
 export PATH=$HOME/bin/matlab/bin:$PATH
 
-# Path changes for Ruby gem utilities (such as `cheat`)
+# Path changes for Ruby gem utilities (such as `cheat`, `rake`, `rdebug`, etc.)
 export PATH=/var/lib/gems/1.8/bin:$PATH
 
 # Path changes for Git on (at least) OS X 10.5
