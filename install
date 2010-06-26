@@ -17,10 +17,12 @@ IGNORED = [
   '.',
   '..',
   '.DS_Store',
-  '.bzr',
-  '.bzrignore',
+  '.git',
+  '.gitignore',
   'defaults',
   'gnome_settings',
+  'compiz_config.profile',
+  'README.md',
   THIS_FILE,
   ".#{THIS_FILE}.swp",
 ]
@@ -36,13 +38,8 @@ current_directory.entries.each do |entry|
       puts "Copied '#{filename}' to '#{dotfilename}'"
     else
       begin
-        if 'bin' == entry
-          File.symlink(filename, HOME + entry)
-          puts "Installed '#{filename}' as '#{HOME + entry}'"
-        else
-          File.symlink(filename, dotfilename)
-          puts "Installed '#{filename}' as '#{dotfilename}'"
-        end
+        File.symlink(filename, dotfilename)
+        puts "Installed '#{filename}' as '#{dotfilename}'"
       rescue Errno::EEXIST
         puts "WARNING: '#{dotfilename}' already exists and was not overwritten"
       end
