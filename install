@@ -23,6 +23,7 @@ IGNORED = [
   'gnome_settings',
   'compiz_config.profile',
   'README.md',
+  'set_up_environment.sh',
   THIS_FILE,
   ".#{THIS_FILE}.swp",
 ]
