@@ -51,10 +51,11 @@ if $full_install; then
     git clone "git@github.com:benjaminoakes/$repository.git"
   done
   
-  rm -i $HOME/.bashrc # Sometimes there (e.g., Ubuntu)
+  if [ -f "$HOME/.bashrc" ]; then rm -i "$HOME/.bashrc"; fi # Sometimes there (e.g., Ubuntu)
+  cd $HOME/Projects/dotfiles
   $HOME/Projects/dotfiles/install
-  mv -i $HOME/Templates/ $HOME/.Trash
-  ln -s $HOME/Projects/templates/ ~/Templates
+  if [ -d "$HOME/Templates" ]; then mv -i $HOME/Templates/ $HOME/.Trash; fi # Sometimes there (e.g., Ubuntu)
+  ln -s $HOME/Projects/templates/ $HOME/Templates
 else
   base_download_url="http://github.com/benjaminoakes/dotfiles/raw/master"
   
