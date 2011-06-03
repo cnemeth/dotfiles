@@ -15,6 +15,7 @@ if [ 'Darwin' == `uname` ]; then
   defaults write com.apple.Dock showhidden -bool YES
   defaults write com.apple.iCal IncludeDebugMenu YES
   defaults write com.apple.iTunes invertStoreLinks -bool YES
+  defaults write com.apple.iTunes full-window -1 # No more vertical window controls in iTunes 10
   defaults write com.apple.QuickTimePlayerX MGFullScreenExitOnAppSwitch 0
   defaults write com.apple.safari IncludeDebugMenu 1
   defaults write com.apple.screencapture location $HOME/Outbox/
