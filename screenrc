@@ -6,6 +6,8 @@
 # 
 # Author: Benjamin Oakes <hello@benjaminoakes.com>
 
+multiuser on
+
 # escape ^]]
 
 # don't use the hardstatus line for system messages, use reverse video instead
