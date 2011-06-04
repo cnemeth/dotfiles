@@ -1,43 +1,29 @@
 " Settings for the vim text editor.
 " 
-" Paul Hinze (phinze on GitHub) gave me his ~/.vimrc as a base.  I added a lot of stuff that I found on dotfiles.org (before _why disappeared and the site went away).  This is pretty long, but there's a lot that has been copy-paste for me.  Thanks to everyone who shares this type of stuff.  :)
-" 
 " Author: Benjamin Oakes <hello@benjaminoakes.com>
 
 " TODO find a way to ignore caps lock (or warn very visibly).  It's easy on OS X (via the Keyboard preference pane), but I'd like a general way
 
-" ----------------
 " General Settings
 " ----------------
 
-set nocompatible
-  " set: don't emulate vi bugs (must be first; has side effects)
+set nocompatible " don't emulate vi bugs (must be first; has side effects)
 set enc=utf-8
-  " ensure utf-8 is our encoding of choice
-set exrc
-  " enable per-directory .vimrc files
-set secure
-  " disable unsafe commands in local .vimrc files
+set exrc " enable per-directory .vimrc files
+set secure " disable unsafe commands in local .vimrc files
 
-" --------------------
 " Environment Settings
 " --------------------
 
-let $PAGER=''
-  " So we can use vim for viewing man pages
-set mouse=a
-  " Use the mouse from the terminal version of vim (not on OS X though, unless you use xterm or another terminal emulator)
 setlocal makeprg=rake
+set mouse=a " Use the mouse from the terminal version of vim (not on OS X though, unless you use xterm or another terminal emulator)
 set path=/usr/local/git/bin,/opt/local/bin,/opt/local/sbin,/usr/bin,/bin,/usr/sbin,/sbin,/usr/local/bin,/usr/X11/bin,/usr/local/git/bin/,~/bin,.
-set history=1000
-  " keep N lines of command line history
+set history=1000 " keep N lines of command line history
 
-" ----------------
 " Display Settings
 " ----------------
 
-set showcmd
-  " For longer commands, show what I've typed in the status bar
+syntax on " set: turn on syntax hilighting
 " let g:syntastic_enable_signs=1
 " set statusline+=%{StatuslineTabWarning()}
 " set statusline+=%*
@@ -45,79 +31,37 @@ set showcmd
 " set statusline+=%{StatuslineLongLineWarning()}
 " set statusline+=%{SyntasticStatuslineFlag()}
   " FIXME Show syntax errors
-set lazyredraw
-  " Don't try to continuously update the screen during macros (makes things go faster)
-" set scrolloff=5
-"   " start scrolling when cursor is N lines from the top/bottom edge
-set cursorline
-  " Highlight the current line
-set listchars=tab:>-,trail:.,extends:>
-" set list!
-  " Show invisible characters (whitespace)
-set linebreak
-  " set: don't break words in middle
-set display+=lastline
-  " show incomplete paragraphs even when they don't fit on screen (avoid @'s)
-set ruler
-  " set: always show ruler (shows percentage in status line, etc)
-syntax on
-  " set: turn on syntax hilighting
-set number
-  " set: turn on line numbering
+set showcmd " For longer commands, show what I've typed in the status bar
+set lazyredraw " Don't try to continuously update the screen during macros (makes things go faster)
+set cursorline " Highlight the current line
+set listchars=tab:>-,trail:.,extends:> " Which invisible characters to show (whitespace)
+set linebreak " don't break words in middle
+set display+=lastline " show incomplete paragraphs even when they don't fit on screen (avoid @'s)
+set ruler " Always show ruler (shows percentage in status line, etc)
+set number " Turn on line numbering
 colorscheme ir_black
-  " TODO get misspelled words to be underlined instead of highlighted in red in the CLI version of vim
 
-" --------------------
 " Indentation and Tabs
 " --------------------
 
-set expandtab
-  " Use spaces instead of tabs
-set tabstop=2
-  " set tabstop to 2 spaces
-set shiftwidth=2
-  " make >> and friends (<<, ^T, ^D)  shift 2, not 8
-set shiftround
-  " round to nearest n, don't just move n
+autocmd FileType make set noexpandtab " Use tabs instead of spaces, otherwise `make` will hate you
+set expandtab " Use spaces instead of tabs
+set tabstop=2 " set tabstop to 2 spaces
+set shiftwidth=2 " make >> and friends (<<, ^T, ^D)  shift 2, not 8
+set shiftround " round to nearest n, don't just move n
 set autoindent
-set smartindent
-  " turn on vim's magical indenting...
+set smartindent " turn on vim's magic indenting
+" ...but don't move # lines to the beginning.  See :help smartindent
 inoremap # X#
-  " ...but don't move # lines to the beginning.  See :help smartindent
 
-autocmd FileType make set noexpandtab
-  " Use tabs instead of spaces, otherwise `make` will hate you
-
-" ------------
-" Highlighting
-" ------------
-
-" set hlsearch 
-"   " highlight matches to a search
-" set nohls
-"   " set: don't highlight searches; it's annoying when the highlight sticks
-
-" :highlight OverLength ctermbg=white ctermfg=red guibg=red guifg=white
-" :match OverLength '\%81v.*'
-"   " Highlight chars that go over the 80-column limit
-
-" -------
 " Folding
 " -------
 
-set foldmethod=indent
-  " Indent based on how many tabstops there are
-" set foldmethod=syntax
-  " Indent based on language syntax
+set foldmethod=indent " Indent based on how many tabstops there are
+" set foldmethod=syntax " Indent based on language syntax
 
-" -------------
 " Abbreviations
 " -------------
-
-abbrev approx approximately
-abbrev impt important
-abbrev iirc if I remember correctly
-" abbrev std standard
 
 " Typos
 abbrev teh the
@@ -133,47 +77,22 @@ abbrev flase false
 abbrev ptus puts
 abbrev TOOD TODO
 
-" -----------
 " Spell Check
 " -----------
 
-set dictionary=/usr/share/dict/words
-  " Does a completion with dictionary
-  " Ctrl+x Ctrl+k
-set spell
-  " Turn on spell checking
-autocmd FileType diff set nospell
-  " Turn off spell checking in diffs
+set dictionary=/usr/share/dict/words " Does a completion with dictionary, Ctrl+x Ctrl+k
+set spell " Turn on spell checking
+autocmd FileType diff set nospell " Turn off spell checking in diffs
 
-" ---------------
-" Code Completion
-" ---------------
+set wildmenu " Gives feedback when completing on the vim command line
+set wildignore+=*.o,*.obj,*~,.lo,*.swp,*.pyc,*.class " File extensions to ignore in the wildmenu
 
-" setlocal omnifunc=syntaxcomplete#Complete
-  " activate autocomplete (intellisense)
-  " TODO how do you use this?
-
-  " autocmd FileType python set omnifunc=pythoncomplete#Complete
-  " autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-  " autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-  " autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-  " autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-  " autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-  " autocmd FileType c set omnifunc=ccomplete#Complete
-
-set wildmenu
-  " Gives feedback when completing on the vim command line
-set wildignore+=*.o,*.obj,*~,.lo,*.swp,*.pyc,*.class
-  " File extensions to ignore in the wildmenu
-
-" ----------------
 " GNU Screen Stuff 
 " ----------------
 
 " au BufEnter * silent !screen -X title "vim: <afile>"
 " au VimLeave * silent !screen -X title "bash"
 
-" ------------------
 " Backup File Tweaks
 " ------------------
 
@@ -184,7 +103,6 @@ au BufWrite /private/etc/pw.* set nowritebackup
 set backupdir=./.backup,.,$TEMP,$TMP,/tmp
   " Keep vim from littering with backup files all over the place
 
-" -----------
 " Keybindings
 " -----------
 
@@ -285,7 +203,6 @@ nmap ,r "rY:r!ruby -e "puts r<bs>"<cr>
   
 " TODO scope the above bindings to languages
  
-" ------
 " Search
 " ------
 
@@ -298,7 +215,6 @@ set smartcase
 set incsearch
   " Start searching right away
 
-" -------------
 " Tags settings
 " -------------
 
@@ -307,7 +223,6 @@ set tags=./tags;
   " 
   "     This will look in the current directory for "tags", and work up the tree towards root until one is found. IOW, you can be anywhere in your source tree instead of just the root of it.
 
-" -----------------
 " Man page settings
 " -----------------
 
@@ -316,7 +231,6 @@ autocmd FileType man set nospell
 " autocmd FileType man set nonumber
 "   " No line numbers in man pages (when viewed with vim)
 
-" -------------
 " Ruby settings
 " -------------
 
@@ -328,7 +242,6 @@ let g:rubycomplete_rails = 1
   " FIXME Match do and end when using %
   " See http://www.vim.org/scripts/script.php?script_id=39
 
-" -----------------
 " Language-specific
 " -----------------
 
