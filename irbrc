@@ -4,27 +4,11 @@
 # 
 # Author: Benjamin Oakes <hello@benjaminoakes.com>
 
-IRB_START_TIME = Time.now
-
-# Print to yaml format with "y"
-require 'yaml'
-# Pretty printing
-require 'pp'
-# Ability to load rubygem modules
-require 'rubygems'
-# Tab completion
-require 'irb/completion'
-# Save irb sessions to history file
-require 'irb/ext/save-history'
-require 'pp'
-
-# TODO install these libraries
-# # Not stdlib
-# require 'map_by_method'
-# require 'what_methods'
-# # For printing time in session
-# require 'duration'
-# For coloration
+require 'yaml' # Print to yaml format with "y"
+require 'pp' # Pretty printing
+require 'rubygems' # Ability to load rubygem modules
+require 'irb/completion' # Tab completion
+require 'irb/ext/save-history' # Save irb sessions to history file
 
 # Return only the methods not present on basic objects
 class Object
@@ -33,8 +17,12 @@ class Object
   end
 end
 
-# # Prints how long the session has been open upon exit
-# at_exit { puts Duration.new(Time.now - IRB_START_TIME) }
+def time(times = 1)
+  require 'benchmark'
+  timing = nil
+  Benchmark.bm { |x| x.report { times.times { timing = yield } } }
+  return timing
+end
 
 begin
   # Wirble is a set of enhancements for Irb.  Wirble enables several items mentioned on the RubyGarden "Irb Tips and Tricks" page, including tab-completion, history, and a built-in ri command, as well as colorized results and a couple other goodies. The idea, of course, is to fill Irb with useful features without turning your ~/.irbrc file into swiss cheese.
@@ -83,39 +71,11 @@ rescue
   puts "Warning: could not load 'wirble'"
 end
 
-# Include line numbers and indent levels:
-IRB.conf[:PROMPT][:SHORT] = {
-  :PROMPT_C=>"%03n:%i* ",
-  :RETURN=>"%s\n",
-  :PROMPT_I=>"%03n:%i> ",
-  :PROMPT_N=>"%03n:%i> ",
-  :PROMPT_S=>"%03n:%i%l "
-}
-
 IRB.conf[:PROMPT_MODE] = :SHORT
-# Adds readline functionality
-IRB.conf[:USE_READLINE] = true
+IRB.conf[:USE_READLINE] = true # Adds readline functionality
 
 IRB.conf[:PROMPT_MODE] = :SIMPLE # Remove the annoying irb(main):001:0 and replace with >>
 IRB.conf[:USE_READLINE] = true # Load the readline module.
 
-# Auto indents suites
-IRB.conf[:AUTO_INDENT] = true
-
 IRB.conf[:SAVE_HISTORY] = 1000
 IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb_history" 
-
-if ENV.include?('RAILS_ENV') && !Object.const_defined?('RAILS_DEFAULT_LOGGER')
-  require 'logger'
-  RAILS_DEFAULT_LOGGER = Logger.new(STDOUT)
-end
-
-def time(times = 1)
-  require 'benchmark'
-  timing = nil
-  Benchmark.bm { |x| x.report { times.times { timing = yield } } }
-  return timing
-end
-
-ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord)
-
