@@ -1,4 +1,4 @@
-" Settings for the vim text editor.
+" Settings for the Vim text editor.
 " 
 " Author: Benjamin Oakes <hello@benjaminoakes.com>
 
@@ -17,13 +17,15 @@ set secure " disable unsafe commands in local .vimrc files
 
 setlocal makeprg=rake
 set mouse=a " Use the mouse from the terminal version of vim (not on OS X though, unless you use xterm or another terminal emulator)
-set path=/usr/local/git/bin,/opt/local/bin,/opt/local/sbin,/usr/bin,/bin,/usr/sbin,/sbin,/usr/local/bin,/usr/X11/bin,/usr/local/git/bin/,~/bin,.
+set path=/usr/local/git/bin,/opt/local/bin,/opt/local/sbin,/usr/bin,/bin,/usr/sbin,/sbin,/usr/local/bin,/usr/X11/bin,/usr/local/git/bin/,~/bin
 set history=1000 " keep N lines of command line history
 
 " Display Settings
 " ----------------
 
-syntax on " set: turn on syntax hilighting
+syntax on  " turn on syntax hilighting
+set number " Turn on line numbering
+set ruler  " Always show ruler (shows percentage in status line, etc.)
 " let g:syntastic_enable_signs=1
 " set statusline+=%{StatuslineTabWarning()}
 " set statusline+=%*
@@ -37,8 +39,6 @@ set cursorline " Highlight the current line
 set listchars=tab:>-,trail:.,extends:> " Which invisible characters to show (whitespace)
 set linebreak " don't break words in middle
 set display+=lastline " show incomplete paragraphs even when they don't fit on screen (avoid @'s)
-set ruler " Always show ruler (shows percentage in status line, etc)
-set number " Turn on line numbering
 colorscheme ir_black
 
 " Indentation and Tabs
@@ -50,7 +50,7 @@ set tabstop=2 " set tabstop to 2 spaces
 set shiftwidth=2 " make >> and friends (<<, ^T, ^D)  shift 2, not 8
 set shiftround " round to nearest n, don't just move n
 set autoindent
-set smartindent " turn on vim's magic indenting
+set smartindent " turn on Vim's magic indenting
 " ...but don't move # lines to the beginning.  See :help smartindent
 inoremap # X#
 
@@ -84,168 +84,78 @@ set dictionary=/usr/share/dict/words " Does a completion with dictionary, Ctrl+x
 set spell " Turn on spell checking
 autocmd FileType diff set nospell " Turn off spell checking in diffs
 
+" Various UI
+" ----------
+
 set wildmenu " Gives feedback when completing on the vim command line
 set wildignore+=*.o,*.obj,*~,.lo,*.swp,*.pyc,*.class " File extensions to ignore in the wildmenu
 
 " GNU Screen Stuff 
 " ----------------
 
-" au BufEnter * silent !screen -X title "vim: <afile>"
-" au VimLeave * silent !screen -X title "bash"
+au BufEnter * silent !screen -X title "vi <afile>"
+au VimLeave * silent !screen -X title "bash"
 
 " Backup File Tweaks
 " ------------------
 
-au BufWrite /private/tmp/crontab.* set nowritebackup
-  " don't write backup file when called by "crontab -e"; it breaks
-au BufWrite /private/etc/pw.* set nowritebackup
-  " same for "chpass"; breaks if backups written
-set backupdir=./.backup,.,$TEMP,$TMP,/tmp
-  " Keep vim from littering with backup files all over the place
+au BufWrite /private/tmp/crontab.* set nowritebackup " don't write backup file when called by "crontab -e"; it breaks
+au BufWrite /private/etc/pw.* set nowritebackup " same for "chpass"; breaks if backups written
 
 " Keybindings
 " -----------
 
-" This is for working across multiple xterms and/or gvims
-" Transfer/read and write one block of text between vim sessions (capture whole line):
-
-" Write
-nmap ;w :. w! ~/.xfer<CR>
-" Read
-nmap ;r :r ~/.xfer<CR>
-" Append 
-nmap ;a :. w! >>~/.xfer<CR>
-
-" map : q:i
-"   " FIXME Let me use vim keybindings on the vim command line
-nmap ,s :source ~/.vimrc<CR>
-nmap ,v :tabnew ~/.vimrc<CR>
-  " Make it easier to reload and edit .vimrc (this file)
+" Same as o, but doesn't leave you in insert.  Really nice for spacing code out.
 noremap - o<esc>
 noremap _ O<esc>
-  " Same as o, but doesn't leave you in insert.  Really nice for spacing code out.
 
+" Switch keybindings between moving by display and moving by physical lines - that is, 'k' moves up by a display line, 'gk' by a physical line.
+" (This might be confusing if you're not used to it, but it's how most GUI apps behave.)
 noremap k gk
 noremap j gj
 noremap gk k
 noremap gj j
-  " Switch keybindings between moving by display and moving by physical
-  " lines - that is, 'k' moves up by a display line, 'gk' by a physical line.
-  " (This might be confusing if you're not used to it, but it's how most GUI apps behave.)
 
-" imap <silent> <S-tab> <C-v><tab>
-"   " Shift-tab to insert a hard tab
-"   " FIXME
+" Shift-tab to insert a hard tab
+imap <silent> <S-tab> <C-v><tab>
 
-nnoremap gf :vsp<ESC>gf
-  " Open files in a split
-
-" nnoremap <C-]> :vsp<CR><C-]>
-"   " FIXME Open tags in a split
-
-" nnoremap K :!matlabdoc "<cword>" > /tmp/vimdoc<CR>:80 vsp /tmp/vimdoc<CR>
-"   " Open documentation in a split TODO parameterize the keywordprg in the above, maybe write it someplace else
-
-" TODO autocmd FileType eruby 
-nmap ,/ I<!-- <esc>A --><esc>
-  " Comment out the current line in HTML
-nmap ,= I<%= <esc>A %><esc>
-  " Surround the current line in <%= %>
-nmap ,# I<%# <esc>A %><esc>
-  " Surround the current line in <%# %>
-nmap ,% I<% <esc>A %><esc>
-  " Surround the current line in <% %>
+" Insert my name
 nmap ,a AAuthor: Benjamin Oakes <hello@benjaminoakes.com><esc>
-  " Insert my name
-nmap ,b Yppkkwv$r-jjv$r-
-  " Turn the comment on the current line into a banner
-  " FIXME only works for single character comment markers
 
-" nmap ,c
-"   " TODO Convert the underscored word under the cursor to camel case
-
-" autocmd FileType php nmap ,d odie('got in');<esc>
-"   " Put a die() in the code to see if a region is getting executed
-nmap ,d V!date '+\%Y-\%m-\%d'<cr>YpVr=--:w<cr>
-  " Insert the current date as a header
-nmap ,e Ypwceend<esc>O<tab><esc>
-  " Make an \end declaration from the corresponding \begin in LaTeX
+" Replace double quotes with single quotes on the current line.
 nmap ,' :.s/"/'/g
-  " Replace double quotes with single quotes on the current line.
-nmap ,u YPDA# See also: "+p
-  " Take the clipboard contents and insert a "See also" comment.  Meant for URLs.
 
-" TODO define this for more languages
+" Inspect the variable on the current line (in C).  NOTE: You'll need to specify the right format for printf();
 autocmd FileType c nmap ,i ^"oy$Iprintf("<esc>A: %s\n", (<esc>pA));<esc>
-  " Inspect the variable on the current line (in C).  NOTE: You'll need to specify the right format for printf();
-autocmd FileType eruby nmap ,i ^"oy$I<%= "<esc>A: #{(<esc>"opA).inspect}" %><esc>
-  " Inspect the variable on the current line (in embedded Ruby)
-autocmd FileType php nmap ,i Iecho('<esc>l"oy$A: ' . print_r(<esc>"opA, true) . "\n");<esc>
-  " Inspect the variable on the current line (in PHP)
+" Inspect the variable on the current line (in Ruby)
 autocmd FileType ruby nmap ,i ^"oy$Iputs "<esc>A: #{(<esc>"opA).inspect}"<esc>
-  " Inspect the variable on the current line (in Ruby)
+" Execute the current line as Ruby, writing the result below
+autocmd FileType ruby nmap ,r "rY:r!ruby -e "puts r<bs>"<cr>
+" Inspect the variable on the current line (in embedded Ruby)
+autocmd FileType eruby nmap ,i ^"oy$I<%= "<esc>A: #{(<esc>"opA).inspect}" %><esc>
 
+" Reverse of ,i.  Depends on # as a marker
 nmap ,I 0f#f(ld0$F)D
-  " Reverse of ,i.  Depends on # as a marker
 
-nmap ,l iLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<esc>
-  " Standard text for testing layouts
-
-nmap ,m o<esc>Dielse<cr>raise "Reached 'impossible' case in #{__FILE__}: #{__LINE__}"<esc>
-  " Insert the standard 'impossible' warning
-
+" Make an \end declaration from the corresponding \begin in LaTeX
+autocmd FileType latex nmap ,e Ypwceend<esc>O<tab><esc>
+" Make an environment (i.e. \begin{environment} from the current line
+" NOTE This uses ,e (defined above)
 autocmd FileType latex nmap ,n I\begin{<esc>A}<esc>,e
-  " Make an environment (i.e. \begin{environment} from the current line
-  " NOTE This uses ,e (defined above)
 
-nmap ,r "rY:r!ruby -e "puts r<bs>"<cr>
-  " Execute the current line as Ruby, writing the result below
-  
-" TODO scope the above bindings to languages
+" Standard text for testing layouts
+nmap ,l iLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<esc>
  
 " Search
 " ------
 
-" TODO PCRE searching would be *amazing*.  Vim's regex syntax messes me up quite often.
-
-set ignorecase
-  " Case-insensitive searches
-set smartcase
-  " This will have searches ignore case unless I use a capital letter
-set incsearch
-  " Start searching right away
-
-" Tags settings
-" -------------
-
-set tags=./tags;
-  " From: http://stackoverflow.com/questions/563616/vimctags-tips-and-tricks:
-  " 
-  "     This will look in the current directory for "tags", and work up the tree towards root until one is found. IOW, you can be anywhere in your source tree instead of just the root of it.
-
-" Man page settings
-" -----------------
-
-autocmd FileType man set nospell
-  " Ignore spelling in man pages (when viewed with vim)
-" autocmd FileType man set nonumber
-"   " No line numbers in man pages (when viewed with vim)
-
-" Ruby settings
-" -------------
-
-" TODO set all of these by FileType
-autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-let g:rubycomplete_rails = 1
-  " TODO What does this do?
-" set matchpairs+="do":"end"
-  " FIXME Match do and end when using %
-  " See http://www.vim.org/scripts/script.php?script_id=39
+set ignorecase " Case-insensitive searches
+set smartcase  " This will have searches ignore case unless I use a capital letter
+set incsearch  " Start searching right away
+set tags=./tags; " From http://stackoverflow.com/questions/563616/vimctags-tips-and-tricks
 
 " Language-specific
 " -----------------
-
-" NOTE I (Ben) didn't write most of this.  I copied it from some amazing person on dotfiles.org.  I do tweak several languages quite often though, such as Ruby.
 
 " Function keys:                                                           "[3]
 "   <F4> - save and compile/check for errors, without running
@@ -259,23 +169,6 @@ let g:rubycomplete_rails = 1
 " 
 " Fixing errors:
 "    <ESC>j, <ESC>k, <ESC>h, <ESC>l - :cnext, :cprevious, :colder, :cnewer
-"
-" There is no binding to run a makefile. I simply open the makefile and use
-" either <F5> or <F6>.
-
-" Java
-augroup lang_java
-    au!
-    let java_highlight_all=1
-    let java_highlight_functions="style"
-    let java_allow_cpp_keywords=1
-
-    autocmd FileType java map <F4> :w<CR>:!javac %<CR>
-    autocmd FileType java map <F5> :w<CR>:!javac % && java %<<CR>
-    autocmd FileType java map <F6> :w<CR>:!javac % && java %<<SPACE>
-    autocmd FileType java map <F7> :w<CR>:!javac % && jdb %<<CR>
-    autocmd FileType java map <F8> :w<CR>:!javac % && jdb %<<SPACE>
-augroup END
 
 " C
 augroup lang_c
@@ -300,63 +193,22 @@ augroup lang_c
     " au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
 augroup END
 
-" Perl
-augroup lang_perl
-    au!
-    autocmd BufEnter *.pl map <F4> :w<CR>:!perl -wc %<CR>
-    autocmd BufEnter *.pl map <F5> :w<CR>:!perl %<CR>
-    autocmd BufEnter *.pl map <F6> :w<CR>:!perl %<SPACE>
-augroup END
-
-" Python
-augroup lang_python
-    au!
-    autocmd BufEnter *.py map <F4> :w<CR>:!python -c "import py_compile; py_compile.compile('%')"<CR>
-    autocmd BufEnter *.py map <F5> :w<CR>:!python %<CR>
-    autocmd BufEnter *.py map <F6> :w<CR>:!python %<SPACE>
-augroup END
-
 " Ruby
 augroup lang_ruby
     au!
-    " filetype plugin indent on
-    "   " This will unindent "end" in Ruby, like TextMate
     autocmd FileType ruby map <F4> :w<CR>:!ruby -c %<CR>
     autocmd FileType ruby map <F5> :w<CR>:!ruby %<CR>
     autocmd FileType ruby map <F6> :w<CR>:!ruby %<SPACE>
-    autocmd FileType ruby set keywordprg=ri\ --no-pager
-      " Use 'K' to look up methods using ri
 
-    " Automatic rtags
-    " FIXME
+    " " FIXME Automatic rtags
     " au BufWritePost *.rb silent! !rtags -R > /dev/null
 augroup END
 
-" Javascript (Rhino)
+" JavaScript (Rhino)
 augroup lang_javascript
     au!
     autocmd BufEnter *.js map <F5> :w<CR>:!js %<CR>
     autocmd BufEnter *.js map <F6> :w<CR>:!js %<SPACE>
-augroup END
-
-" INTERCAL
-augroup lang_intercal
-    au!
-    autocmd FileType intercal map <F4> :w<CR>:!ick -m %<CR>
-    autocmd FileType intercal map <F5> :w<CR>:!ick -m % && ./%<<CR>
-augroup END
-
-" Lisp
-augroup lang_lisp
-    au!
-    autocmd FileType lisp map <F5> :w<CR>:!clisp %<CR>
-    autocmd FileType lisp map <F6> :w<CR>:!clisp %<SPACE>
-augroup END
-
-" BC
-augroup lang_bc
-    au!
-    autocmd FileType bc map <F5> :w<CR>:!bc -lq %<CR>
 augroup END
 
 " Bash
@@ -365,35 +217,6 @@ augroup lang_bash
     autocmd FileType sh map <F4> :w<CR>:!bash -n %<CR>
     autocmd FileType sh map <F5> :w<CR>:!bash %<CR>
     autocmd FileType sh map <F6> :w<CR>:!bash %<SPACE>
-augroup END
-
-" Vim
-augroup lang_vim
-    au!
-    autocmd FileType vim map <F5> :w<CR>:source %<CR>:doautoall lang_vim<CR>
-augroup END
-
-" SQL (PostgreSQL)
-augroup lang_sql
-    au!
-    set nospell " It complains about grammar a lot otherwise
-    let g:sql_type_default = 'pgsql'
-    " Requires installation of pgsql.vim in ~/.vim/syntax .
-    autocmd FileType sql map <F5> :w<CR>:!psql -f %<CR>
-    " This is very unsafe. Remove this unless you're sure you want this.
-augroup END
-
-augroup lang_php
-  au!
-  autocmd FileType php map <F4> :w<CR>:!php --syntax-check %<CR>
-  autocmd FileType php map <F5> :w<CR>:!php %<CR>
-  autocmd FileType php map <F6> :w<CR>:!php %
-augroup END
-
-" HTML
-augroup lang_html
-    au!
-    autocmd FileType html map <F5> :w<CR>:silent !firefox %<CR>
 augroup END
 
 " LaTeX
@@ -408,33 +231,9 @@ augroup lang_latex
   autocmd FileType tex map <F5> :w<CR>:make<CR><CR>
 augroup END
 
-" PostScript
-augroup lang_postscript
-    au!
-    autocmd FileType postscr map <F5> :w<CR>!gnome-open %<CR>
-augroup END
-
 " Make
 augroup lang_make
     au!
     autocmd FileType make map <F5> :w<CR>:!make -f %<CR>
     autocmd FileType make map <F6> :w<CR>:!make -f %<SPACE>
 augroup END
-
-" " FIXME Matlab
-" augroup matlab
-"     au!
-"     " set nospell " Fred tends to have a lot of crazy variable names
-"     " set tabstop=4 " set tabstop to 2 spaces
-"     " set shiftwidth=4 " make >> and friends (<<, ^T, ^D)  shift 2, not 8
-"     " TODO nmap ,i Ifprintf(1, 'ly$Pa: %s\n', A);0f%l
-" augroup END
-
-" autocmd cursorhold * set nohlsearch
-" noremap n :set hlsearch<cr>n
-" noremap N :set hlsearch<cr>N
-" noremap / :set hlsearch<cr>/
-" noremap ? :set hlsearch<cr>?
-" noremap # :set hlsearch<cr>#
-" noremap * :set hlsearch<cr>*
-
