@@ -81,7 +81,7 @@ abbrev TOOD TODO
 " -----------
 
 set dictionary=/usr/share/dict/words " Does a completion with dictionary, Ctrl+x Ctrl+k
-set spell " Turn on spell checking
+" set spell " Turn on spell checking
 autocmd FileType diff set nospell " Turn off spell checking in diffs
 
 " Various UI
