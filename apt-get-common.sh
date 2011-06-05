@@ -42,5 +42,3 @@ sudo apt-get git
 # cat /home/ben/id_rsa.pub >> /home/ben/.ssh/authorized_keys
 # chmod 600 ~/.ssh/authorized_keys 
 # rm /home/ben/id_rsa.pub 
-
-
