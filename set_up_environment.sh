@@ -1,4 +1,6 @@
 #!/bin/sh
+# See show_usage()
+# 
 # I commonly use multiple computers, most of which are Unix-y.
 # 
 # Author: Benjamin Oakes <hello@benjaminoakes.com>
@@ -64,4 +66,3 @@ else
   echo mv profile $HOME/.profile
   mv profile $HOME/.profile
 fi
-
