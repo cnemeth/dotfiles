@@ -51,4 +51,3 @@ end
 # Settings-applying scripts for various OSes.  (See each file for details.)
 puts %x(bash ./defaults) # Using sh confuses `[`
 puts %x(bash ./gnome_settings) # Using sh confuses `[`
-
