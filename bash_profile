@@ -28,6 +28,10 @@ bind -x '"\C-l":clear' # FIXME this doesn't seem to work in OS X's GNU screen
 # 
 # See also: http://www.faqs.org/faqs/unix-faq/faq/part2/section-13.html
 
+# For Homebrew (...I think)
+export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/sbin:$PATH
+
 # Allow me to run user-specific programs
 export PATH=$HOME/Projects/bin:$PATH
 export PATH=$HOME/Projects/utilities:$PATH
@@ -121,3 +125,5 @@ function parse_git_branch {
 }
 
 # Note to self:  pushd and popd replace functionality that was previously done by bash functions here.
+
+[[ -s "/Users/benoakes/.rvm/scripts/rvm" ]] && source "/Users/benoakes/.rvm/scripts/rvm"  # This loads RVM into a shell session.
