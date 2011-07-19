@@ -39,7 +39,7 @@ set cursorline " Highlight the current line
 set listchars=tab:>-,trail:.,extends:> " Which invisible characters to show (whitespace)
 set linebreak " don't break words in middle
 set display+=lastline " show incomplete paragraphs even when they don't fit on screen (avoid @'s)
-colorscheme ir_black
+colorscheme railscasts
 
 " Indentation and Tabs
 " --------------------
@@ -57,7 +57,7 @@ inoremap # X#
 " Folding
 " -------
 
-set foldmethod=indent " Indent based on how many tabstops there are
+" set foldmethod=indent " Indent based on how many tabstops there are
 " set foldmethod=syntax " Indent based on language syntax
 
 " Abbreviations
@@ -87,14 +87,17 @@ autocmd FileType diff set nospell " Turn off spell checking in diffs
 " Various UI
 " ----------
 
+set wildmode=longest,list,full
 set wildmenu " Gives feedback when completing on the vim command line
 set wildignore+=*.o,*.obj,*~,.lo,*.swp,*.pyc,*.class " File extensions to ignore in the wildmenu
+set cpotions+=$
+set virtualedit=all
 
 " GNU Screen Stuff 
 " ----------------
 
-au BufEnter * silent !screen -X title "vi <afile>"
-au VimLeave * silent !screen -X title "bash"
+" au BufEnter * silent !screen -X title "vi <afile>"
+" au VimLeave * silent !screen -X title "bash"
 
 " Backup File Tweaks
 " ------------------
