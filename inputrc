@@ -1,8 +1,0 @@
-# Use vi mode for bash and other programs that use GNU readline (such as irb, python, sqlite3, mysql, etc.)
-# 
-# Author: Benjamin Oakes <hello@benjaminoakes.com>
-
-set editing-mode vi 
-set keymap vi
-set completion-ignore-case On
-
