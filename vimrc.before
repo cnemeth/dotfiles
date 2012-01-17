@@ -1,11 +1,23 @@
-" Source the vimrc file after saving it
-if has("autocmd")
-  autocmd bufwritepost .vimrc source $MYVIMRC
+" disble NERDTree plugin
+" call janus#disable_plugin('nerdtree')
+
+" remove toolbar in macvim
+if has("gui_running")
+  set guioptions=-t
 endif
 
-" open vimrc
+" remap leader from '\' to ','
 let mapleader = ","
-nmap <leader>v :tabedit $MYVIMRC<CR>
+
+" ack
+nnoremap <leader>a :Ack<space>
+
+
+" fugitive: sexy git wrapper
+nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gg :Ggrep
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gm :Gmove
 
 " Fuzzyfinder
 let g:fuf_modesDisable = []
@@ -35,9 +47,31 @@ nnoremap <silent> <C-f><C-b> :FufAddBookmark<CR>
 vnoremap <silent> <C-f><C-b> :FufAddBookmarkAsSelectedText<CR>
 nnoremap <silent> <C-f><C-e> :FufEditInfo<CR>
 nnoremap <silent> <C-f><C-r> :FufRenewCache<CR>
+nnoremap <leader>t :FufFile **/<CR>
+nnoremap <leader>T :FufRenewCache<CR>
 
-" sets the font and size
-:set guifont=Menlo\ Regular:h16
+" clear current search
+nnoremap <leader><space> :noh<cr>
+
+" Hitting '#' in visual mode does a search on the current selection. Will not
+" work with multi-line selection.
+vnoremap # <esc>:let save_reg=@"<cr>gvy:let @/=@"<cr>:let @"=save_reg<cr>?<cr>
+
+" Cycle through the buffers
+map  <F7>  :bp<CR>
+map  <F8>  :bn<CR>
+
+" Buffer resizing mappings (shift + arrow key)
+nnoremap <S-Up> <c-w>+
+nnoremap <S-Down> <c-w>-
+nnoremap <S-Left> <c-w><
+nnoremap <S-Right> <c-w>>
+
+" indent-guides
+" Bundle 'nathanaelkane/vim-indent-guides'
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size  = 1
+nnoremap <leader>ig :IndentGuidesToggle<CR>
 
 " Rubytest.vim from chuckg
 nmap <leader>ra <Plug>RubyFileRun         " Run all tests for the current file.
