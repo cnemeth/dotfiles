@@ -61,6 +61,9 @@ vnoremap # <esc>:let save_reg=@"<cr>gvy:let @/=@"<cr>:let @"=save_reg<cr>?<cr>
 map  <F7>  :bp<CR>
 map  <F8>  :bn<CR>
 
+" Open/close Tagbar
+nnoremap <silent> <F9> :TagbarToggle<CR>
+
 " Buffer resizing mappings (shift + arrow key)
 nnoremap <S-Up> <c-w>+
 nnoremap <S-Down> <c-w>-

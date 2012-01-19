@@ -31,5 +31,7 @@ export PATH=/Applications/SenchaSDKTools-1.2.3/jsbuilder:$PATH
 
 export PATH=/Applications/SenchaSDKTools-1.2.3/appbuilder:$PATH
 
+export PATH=/usr/local/bin:$PATH
+
 alias pg_start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 alias pg_stop='pg_ctl -D /usr/local/var/postgres -m fast stop'
