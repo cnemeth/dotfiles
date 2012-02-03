@@ -77,3 +77,19 @@ nnoremap <leader>ig :IndentGuidesToggle<CR>
 nmap <leader>ra <Plug>RubyFileRun         " Run all tests for the current file.
 nmap <leader>rf <Plug>RubyTestRun         " Run focused test from cursor.
 nmap <leader>rl <Plug>RubyTestRunLast     " Run the last test from any buffer.
+
+" chuckg rails
+" Bundle 'tpope/vim-rails'
+let g:rails_ctags_arguments = "--languages=-javascript"
+let g:rails_ctags_arguments .= " --extra=+f"
+let g:rails_ctags_arguments .= " --exclude=.git --exclude=log"
+"let g:rails_ctags_arguments .= " `bundle show rails`/../*"
+let g:rails_ctags_arguments .= " `ruby -rrubygems -e 'p Gem.path.collect {|p| [\"gems\", File.join(\"bundler\", \"gems\")].collect {|d| File.join(p, d)} }.join(\" \")' | sed 's/\"//g'`"
+
+" -----------------------------------------------------------------------------
+" tags
+" -----------------------------------------------------------------------------
+
+" vim-rails creates tags in `tmp/tags` when you generate using :Rtags
+set tags=./tags,tags,tmp/tags
+
