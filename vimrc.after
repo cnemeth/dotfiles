@@ -2,4 +2,7 @@
 color ir_black
 
 " sets the font and size
-:set guifont=Menlo\ Regular:h16
+set guifont=Menlo\ Regular:h16
+
+" dump selected html code to browser
+vmap <Leader>h :TOhtml<CR>:w! /tmp/tmp.htm<CR>:bd!<CR>:!open /tmp/tmp.htm<CR>
