@@ -1,0 +1,3 @@
+---
+BUNDLE_BUILD__CLAMAV: --with-clamav-lib=/usr/local/Cellar/clamav/0.97.3/lib/x86_64
+BUNDLE_BUILD__RUBY-DEBUG-BASE19: --with-ruby-include=$rvm_path/src/ruby-1.9.3-p125/

@@ -1,6 +1,14 @@
 " disble NERDTree plugin
 " call janus#disable_plugin('nerdtree')
 
+" Set 256 color mode
+set t_Co=256
+
+" To inable the mouse for all modes for MouseTerm
+if has("mouse")
+  set mouse=a
+endif
+
 " remove toolbar in macvim
 if has("gui_running")
   set guioptions=-t
