@@ -1,0 +1,12 @@
+[user]
+  name = Csaba Nemeth
+  email = cnemeth@federatedmedia.net
+[color]
+  ui = true
+[alias]
+  ci = commit
+  co = checkout
+  st = status
+  br = branch
+[core]
+	editor = vim
