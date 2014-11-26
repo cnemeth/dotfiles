@@ -6,3 +6,25 @@ set guifont=Menlo\ Regular:h12
 
 " dump selected html code to browser
 vmap <Leader>h :TOhtml<CR>:w! /tmp/tmp.htm<CR>:bd!<CR>:!open /tmp/tmp.htm<CR>
+
+" Toggle cursorline and cursorcolumn
+ map <silent> <Leader>cl :set cursorline! <CR>
+imap <silent> <Leader>cl <Esc>:set cursorline! <CR>a
+vmap <silent> <Leader>cl :set cursorline! <CR>
+
+ map <silent> <Leader>cc :set cursorcolumn! <CR>
+imap <silent> <Leader>cc <Esc>:set cursorcolumn! <CR>a
+vmap <silent> <Leader>cc :set cursorcolumn! <CR>
+
+ map <silent> <Leader>ct :set cursorline! cursorcolumn! <CR>
+imap <silent> <Leader>ct <Esc>:set cursorline! cursorcolumn! <CR>a
+vmap <silent> <Leader>ct :set cursorline! cursorcolumn! <CR>
+
+" Turn On/Off cursorline and cursorcolumn
+ map <silent> <Leader>co :set cursorline cursorcolumn <CR>
+imap <silent> <Leader>co <Esc>:set cursorline cursorcolumn <CR>a
+vmap <silent> <Leader>co :set cursorline cursorcolumn <CR>
+
+ map <silent> <Leader>cn :set nocursorline nocursorcolumn <CR>
+imap <silent> <Leader>cn <Esc>:set nocursorline nocursorcolumn <CR>a
+vmap <silent> <Leader>cn :set nocursorline nocursorcolumn <CR>
