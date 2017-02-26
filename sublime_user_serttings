@@ -1,12 +1,38 @@
 {
-  "color_scheme": "Packages/Color Scheme - Default/All Hallow's Eve.tmTheme",
+  "auto_complete": true,
+    "auto_complete_commit_on_tab": true,
+    "color_scheme": "Packages/User/SublimeLinter/IR_Black (SL).tmTheme",
+    "copy_with_empty_selection": true,
+    "ensure_newline_at_eof_on_save": true,
+    "file_exclude_patterns":
+      [
+      "tags",
+    "pack"
+      ],
+    "folder_exclude_patterns":
+      [
+      "target",
+    "cache",
+    "log",
+    ".git",
+    "logs",
+    "tags"tmTheme
+      ],
     "font_face": "",
     "font_size": 15,
+    "hot_exit": false,
     "ignored_packages":
       [
+      "JavaScript"
       ],
-    "tab_size":font_face 2,
+    "index_files": true,
+    "remember_open_files": false,
+    "rulers":
+      [
+      79
+      ],
+    "tab_size": 2,
     "translate_tabs_to_spaces": true,
-    "hot_exit": false,
-    "remember_open_files": false
+    "trim_trailing_white_space_on_save": true,
+    "vintage_start_in_command_mode": true
 }
