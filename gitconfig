@@ -1,6 +1,6 @@
 [user]
   name = Csaba Nemeth
-  email = csaba.nemeth@csabanemeth.org
+  email = "cnemeth9@gmail.com"
 [color]
   ui = true
 [alias]
@@ -10,3 +10,7 @@
   br = branch
 [core]
 	editor = vim
+[github]
+	user = cnemeth
+[credential]
+	helper = osxkeychain

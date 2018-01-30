@@ -1,0 +1,88 @@
+carrum_key=""
+
+function carrum-airflow-admin() {
+  carrum-add-key "CarrumHealthVPC-Key.pem"
+  ssh -L 8081:localhost:8081 root@52.10.43.202
+}
+
+
+function carrum-add-key() {
+  carrum_key=$(ssh-add -l | grep -i $1)
+  if [ -z "$carrum_key" ]; then
+    ssh-add $HOME/.ssh/$1
+  fi
+}
+
+function carrum-mirror() {
+  carrum-add-key "ch-nextgen.pem"
+  ssh ubuntu@ec2-34-213-233-95.us-west-2.compute.amazonaws.com
+}
+
+function carrum-jenkins() {
+  carrum-add-key "ch-nextgen.pem"
+  ssh ubuntu@ec2-34-212-139-213.us-west-2.compute.amazonaws.com
+}
+
+function carrum-qa() {
+  carrum-add-key "CarrumHealthVPC-Key.pem"
+  ssh root@52.10.43.202
+}
+
+function carrum-prod() {
+  /*carrum-add-key "CH-PROD.pem"*/
+  ssh root@52.25.149.159
+}
+
+function carrum-mysql() {
+  conf=$1
+  db=$2
+  mysql --defaults-extra-file=$conf $db
+}
+
+function carrum-mysql-analytics-prod() {
+  carrum-mysql "$HOME/.carrum_analytics.cnf" "reporting"
+}
+
+function carrum-mysql-analytics-create-db() {
+  mysql -u root -e 'create database chanalytics'
+}
+
+function carrum-mysql-analytics-create-user() {
+  mysql -u root -e 'grant all on chanalytics.* to "ch" identified by "ch"'
+}
+
+function carrum-mysql-analytics-load() {
+  mysql -u root chanalytics < $1
+}
+
+function carrum-mysql-analytics-dump() {
+  mysqldump --defaults-extra-file=$HOME/.carrum_analytics.cnf chanalytics > chanalytics-dump-$(date +"%Y-%m-%d-%H:%M:%S").sql
+}
+
+function carrum-mysql-reporting-create-db() {
+  mysql -u root -e 'create database reporting'
+}
+
+function carrum-mysql-reporting-create-user() {
+  mysql -u root -e 'grant all on reporting.* to "ch" identified by "ch"'
+}
+
+function carrum-mysql-reporting-load() {
+  mysql -u root reporting < $1
+}
+
+function carrum-mysql-reporting-dump() {
+  mysqldump --defaults-extra-file=$HOME/.carrum_analytics.cnf reporting > reporting-dump-$(date +"%Y-%m-%d-%H:%M:%S").sql
+}
+
+function carrum-mysql-prod() {
+  carrum-mysql "$HOME/.carrum_prod.cnf" "carrumhealth"
+}
+
+function carrum-mysql-qc() {
+  carrum-mysql "$HOME/.carrum_qc.cnf"
+}
+
+function carrum-mysql-prod-dump() {
+  mysqldump --defaults-extra-file=$HOME/.carrum_prod.cnf carrumhealth > prod-dump-$(date +"%Y-%m-%d-%H:%M:%S").sql
+}

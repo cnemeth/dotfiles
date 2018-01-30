@@ -91,5 +91,7 @@ p4 set P4USER=csaba.nemeth
 # bundler editor to vim
 export BUNDLER_EDITOR=vim
 
-source ~/.rvm/scripts/rvm
+# load Carrum stuff
+source ~/.carrum_bashrc
+
 export HOMEBREW_GITHUB_API_TOKEN=45fe0b681a50b2fc3e336db6b8e139e0d4dc747e
