@@ -2,7 +2,12 @@
 color ir_black
 
 " sets the font and size
-set guifont=Menlo\ Regular:h16
+set macligatures
+set guifont=Fira\ Code:h16
+
+" Disable error bell
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
 
 " dump selected html code to browser
 vmap <Leader>h :TOhtml<CR>:w! /tmp/tmp.htm<CR>:bd!<CR>:!open /tmp/tmp.htm<CR>
@@ -28,3 +33,6 @@ vmap <silent> <Leader>co :set cursorline cursorcolumn <CR>
  map <silent> <Leader>cn :set nocursorline nocursorcolumn <CR>
 imap <silent> <Leader>cn <Esc>:set nocursorline nocursorcolumn <CR>a
 vmap <silent> <Leader>cn :set nocursorline nocursorcolumn <CR>
+
+" Search for visually selected text
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>

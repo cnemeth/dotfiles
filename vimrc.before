@@ -1,6 +1,8 @@
 " disble NERDTree plugin
 " call janus#disable_plugin('nerdtree')
 
+set encoding=UTF-8
+
 " Set 256 color mode
 set t_Co=256
 

@@ -37,6 +37,9 @@ alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 
+# alias for kubectl
+alias k='kubectl'
+
 # vi edit mode for commandline
 set -o vi
 
@@ -94,4 +97,9 @@ export BUNDLER_EDITOR=vim
 # load Carrum stuff
 source ~/.carrum_bashrc
 
+eval "$(rbenv init -)"
+
 export HOMEBREW_GITHUB_API_TOKEN=45fe0b681a50b2fc3e336db6b8e139e0d4dc747e
+export PATH="/usr/local/sbin:$PATH"
+
+export PATH="$HOME/.cargo/bin:$PATH"
