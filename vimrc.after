@@ -1,7 +1,7 @@
-" set color
-color ir_black
-
 " sets the font and size
+set termguicolors
+" set color
+colorscheme onedark
 set macligatures
 set guifont=Fira\ Code:h16
 
@@ -36,3 +36,6 @@ vmap <silent> <Leader>cn :set nocursorline nocursorcolumn <CR>
 
 " Search for visually selected text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
+" enable fzf
+set rtp+=/usr/local/opt/fzf
