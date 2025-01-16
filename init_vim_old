@@ -69,6 +69,7 @@ noremap <silent> <C-p> :FZF<CR>
 imap <silent> <Leader>u <Esc>:tabnew <CR>
 
 noremap <leader>a :Ack<space>
+noremap <leader>q :q<CR>
 
 map <silent> <Leader>hl <Esc>:nohl <CR>
 
